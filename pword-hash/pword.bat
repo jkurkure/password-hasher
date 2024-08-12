@@ -1,1 +1,1 @@
-python pword-hash\pword-hash.py
+python pword-hash\pword-hash.py %1 %2

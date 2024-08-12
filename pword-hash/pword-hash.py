@@ -9,11 +9,12 @@ def generate_password(input_string, length):
     return password
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python pword-hash.py <input_string>")
+    if len(sys.argv) != 3:
+        print("Usage: python pword-hash.py <input_string> <password_size>")
         sys.exit(1)
 
     input_string = sys.argv[1]
-    password = generate_password(input_string, 21)
+    size = sys.argv[2]
+    password = generate_password(input_string, size)
     print(f"Input string: {input_string}")
     print(f"Generated password: {password}")

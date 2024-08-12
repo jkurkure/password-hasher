@@ -1,0 +1,1 @@
+python3 pword-hash/pword-hash.py "$1" "$2"
