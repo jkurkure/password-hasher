@@ -35,9 +35,11 @@ simple_hasher = lambda s: sum([ord(c) for c in s])
 easy_hasher = lambda s: eval('*'.join([str(ord(c)) for c in s]))
 
 def generate_password(input_string, length):
-    random.seed(simple_hasher(SECRET_KEY) * simple_hasher(input_string) + easy_hasher(input_string))  # Set a fixed seed value
+    random.seed(simple_hasher(SECRET_KEY) * simple_hasher(input_string) + easy_hasher(input_string) * length)  # Set a fixed seed value
     characters = string.ascii_letters + string.digits + string.punctuation
-    password = ''.join(random.choice(characters) for _ in range(length))
+    sequence = [random.choice(characters) for _ in range(length)]
+    random.shuffle(sequence)
+    password = ''.join(sequence)
     return password
 
 if __name__ == "__main__":
@@ -46,7 +48,11 @@ if __name__ == "__main__":
         sys.exit(1)
 
     input_string = sys.argv[1]
-    size = sys.argv[2]
-    password = generate_password(input_string, eval(size))
+    size = eval(sys.argv[2])
+
+    password = input_string
+    for i in range(size):
+        password = generate_password(password + generate_password(input_string, i), size)
+
     print(f"Input string: {input_string}")
     print(f"Generated password: {password}")
